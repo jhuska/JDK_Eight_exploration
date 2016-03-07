@@ -2,7 +2,9 @@ import com.sun.istack.internal.NotNull;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class Main {
 
@@ -127,8 +129,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        data.stream()
-                .filter(p -> p.getAge() > 40)
-                .forEach(Person::printPerson);
+        Collections.sort(data, (s1, s2) ->
+                Optional.ofNullable(s1.emailAddress).orElseGet(() -> s1.name)
+                        .compareTo(Optional.ofNullable(s2.emailAddress).orElseGet(() -> s2.name)));
+        data.forEach(Person::printPerson);
     }
 }
