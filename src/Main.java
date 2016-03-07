@@ -1,3 +1,5 @@
+import com.sun.istack.internal.NotNull;
+
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +22,7 @@ public class Main {
             MALE, FEMALE
         }
 
+        @NotNull
         private String name;
         private LocalDate birthday;
         private Sex gender;
