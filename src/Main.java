@@ -127,5 +127,8 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        data.stream()
+                .filter(p -> p.getAge() > 40)
+                .forEach(Person::printPerson);
     }
 }
