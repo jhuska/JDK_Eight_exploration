@@ -5,7 +5,7 @@ import java.util.List;
 public class Main {
 
     private static List<Person> data = Arrays.asList(
-            new Person.Builder().name("Juraj").birthday(LocalDate.of(1500, 14, 5)).gender(Person.Sex.MALE).emailAddress("gooseka@foobar.com").build(),
+            new Person.Builder().name("Juraj").birthday(LocalDate.of(1500, 3, 5)).gender(Person.Sex.MALE).emailAddress("gooseka@foobar.com").build(),
             new Person.Builder().name("Peter").birthday(LocalDate.of(1998, 3, 18)).gender(Person.Sex.MALE).emailAddress("peter@seznam.cz").build(),
             new Person.Builder().name("Suzzana").birthday(LocalDate.of(1970, 12, 2)).gender(Person.Sex.FEMALE).emailAddress("suzana@foobar.com").build(),
             new Person.Builder().name("Dagmar").birthday(LocalDate.of(1885, 5, 1)).gender(Person.Sex.FEMALE).emailAddress("dagmar@foobar.com").build(),
@@ -24,14 +24,12 @@ public class Main {
         private LocalDate birthday;
         private Sex gender;
         private String emailAddress;
-        private int age;
 
         public Person(Builder builder) {
             this.name = builder.name;
             this.birthday = builder.birthday;
             this.gender = builder.gender;
             this.emailAddress = builder.emailAddress;
-            this.age = builder.age;
         }
 
         public String getName() {
@@ -50,12 +48,12 @@ public class Main {
             return emailAddress;
         }
 
-        public int getAge() {
-            return age;
-        }
-
         public void printPerson() {
             System.out.println(this);
+        }
+
+        public int getAge() {
+            return birthday.until(LocalDate.now()).getYears();
         }
 
         @Override
@@ -65,7 +63,6 @@ public class Main {
 
             Person person = (Person) o;
 
-            if (age != person.age) return false;
             if (name != null ? !name.equals(person.name) : person.name != null) return false;
             if (birthday != null ? !birthday.equals(person.birthday) : person.birthday != null) return false;
             if (gender != person.gender) return false;
@@ -79,7 +76,6 @@ public class Main {
             result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
             result = 31 * result + (gender != null ? gender.hashCode() : 0);
             result = 31 * result + (emailAddress != null ? emailAddress.hashCode() : 0);
-            result = 31 * result + age;
             return result;
         }
 
@@ -90,7 +86,6 @@ public class Main {
                     ", birthday=" + birthday +
                     ", gender=" + gender +
                     ", emailAddress='" + emailAddress + '\'' +
-                    ", age=" + age +
                     '}';
         }
 
@@ -100,7 +95,6 @@ public class Main {
             private LocalDate birthday;
             private Sex gender;
             private String emailAddress;
-            private int age;
 
             public Builder name(String name) {
                 this.name = name;
@@ -122,11 +116,6 @@ public class Main {
                 return this;
             }
 
-            public Builder age(int age) {
-                this.age = age;
-                return this;
-            }
-
             public Person build() {
                 return new Person(this);
             }
@@ -135,6 +124,5 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
     }
 }
