@@ -129,9 +129,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Collections.sort(data, (s1, s2) ->
-                Optional.ofNullable(s1.emailAddress).orElseGet(() -> s1.name)
-                        .compareTo(Optional.ofNullable(s2.emailAddress).orElseGet(() -> s2.name)));
-        data.forEach(Person::printPerson);
+        data.stream()
+                .mapToInt(Person::getAge)
+                .average()
+                .ifPresent(System.out::println);
     }
 }
